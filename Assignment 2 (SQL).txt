@@ -1,0 +1,251 @@
+select * from continents;
+select * from countries;
+select * from car_makers;
+select * from car_names;
+select * from car_details;
+select * from model_details;
+
+
+
+1. select cy.countryname,ct.continent
+    from countries cy left join continents ct
+    on cy.continent=ct.contid 
+    order by ct.continent;
+
+
+2. select ct.continent,count(*) 
+    from continents ct left join countries cy 
+    on cy.continent=ct.contid 
+    group by ct.continent 
+    order by ct.continent ;
+
+
+3. select cy.countryname from
+    car_makers cm right join countries cy
+    on cm.country=cy.countryid 
+    where cm.country is null;
+
+
+4. select cm.maker ,cy.countryname
+    from car_makers cm join countries cy
+    on cm.country=cy.countryid 
+    where countryname='japan';
+
+
+5. select cm.maker ,cy.countryname
+    from car_makers cm join countries cy
+    on cm.country=cy.countryid 
+    where countryname='france' or countryname='usa';
+
+
+
+6. select cm.maker ,cy.countryname,ct.continent
+    from car_makers cm 
+    join countries cy on cm.country=cy.countryid 
+    join continents ct on cy.continent = ct.contid 
+    where maker='volvo';
+
+
+
+7. select cm.fullname,cn.model,cn.descr
+	from car_names cn 
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id 
+    where cm.fullname='Ford Motor Company';
+
+
+
+8. select cy.countryname,count(md.model) as Total_models
+    from model_details md 
+    join car_makers cm on md.maker=cm.id
+    join countries cy on cy.countryid = cm.country
+    where cy.countryname='germany' 
+    group by cy.countryname;
+
+
+9. select cy.countryname,md.model,cm.id,cm.maker,cm.fullname
+    from model_details md 
+    join car_makers cm on md.maker=cm.id
+    join countries cy on cm.country=cy.countryid 
+    where cy.countryname='japan';
+
+
+10. 
+a. Mpg min,max
+ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.mpg
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.mpg= (select min(mpg) from car_details) ;
+
+  select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.mpg
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.mpg= (select max(mpg) from car_details) ;
+
+
+
+
+
+b. cylinder min,max
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.cylinders
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.cylinders= (select min(cylinders) from car_details) ;
+
+  select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.cylinders
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.cylinders= (select max(cylinders) from car_details) ;
+
+
+
+
+
+
+c. edispl min,max
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.edispl
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.edispl= (select min(edispl) from car_details) ;
+
+  select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.edispl
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.edispl= (select max(edispl) from car_details) ;
+
+
+
+
+
+d. horsepower min,max 
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.horsepower
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.horsepower= (select min(horsepower) from car_details) ;
+
+
+  select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.horsepower
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.horsepower= (select max(horsepower) from car_details) ;
+
+
+
+
+
+e. weight min,max 
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.weight
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.weight= (select min(weight) from car_details) ;
+
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.weight
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.weight= (select max(weight) from car_details) ;
+
+
+
+
+f. accel min,max
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.accel
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.accel= (select min(accel) from car_details) ;
+
+select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.accel
+    from car_details cd  right join car_names cn on cd.id=cn.id
+    join model_details md on cn.model=md.model
+    join car_makers cm on md.maker=cm.id
+    left join countries cy on cm.country=cy.countryid
+	left join continents ct on cy.continent=ct.contid
+    where cd.accel= (select max(accel) from car_details) ;
+
+
+
+
+
+
+
+
+11. select * from 
+    	(select year,count(year) as Total_cars 
+    	from car_details 
+    	group by year 
+    	order by count(year) desc) 
+    	where rownum=1;
+
+
+12. select * from 
+    	(select year,count(year) Total_cars 
+    	from car_details
+    	group by year 
+    	order by count(year))
+    	where rownum=1;
+
+
+
+13. select year,
+	 min(mpg),max(mpg),round(avg(mpg),2) as avg,
+  	 min(cylinders),max(cylinders),round(avg(cylinders),2) as avg,
+  	 min(edispl),max(edispl),round(avg(edispl),2) as avg,
+  	 min(horsepower),max(horsepower),round(avg(horsepower),2) as avg,
+ 	 min(weight),max(weight),round(avg(weight),2) as avg,
+ 	 min(accel),max(accel) ,round(avg(accel),2) as avg
+   	 from car_details 
+  	 group by year 
+    	 order by year;
+  
+
+
+ 14. select round(avg(horsepower),2),round(avg(weight),2),round(avg(accel),2),
+   	 median(horsepower),median(weight),median(accel),
+   	 round(stddev(horsepower),2),round(stddev(weight),2),round(stddev(accel),2)
+   	 from car_details;
+
+
+Horsepower:
+	mean- This value suggests that, on average, the vehicles in the dataset have around 105 horsepower.
+	median-  this means that half of the vehicles have horsepower values less than or equal to 95, and the other half have more.
+	std dev- measures how much the individual horsepower values deviate from the mean. 
+		 A standard deviation of 38.77 indicates moderate variability in horsepower across the dataset.
+
+Weight:
+	mean-  indicating the average weight of vehicles in the dataset(2979.41 lbs)
+	median- means that half the vehicles weigh less than or equal to 2822.5 lbs, and half weight more.
+	std dev- Vehicles in the dataset can vary considerably in weight from the average.
+
+both horsepower and weight are diverse as the std dev is less than the mean.
