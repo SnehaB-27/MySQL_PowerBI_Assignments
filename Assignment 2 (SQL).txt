@@ -70,6 +70,7 @@ select * from model_details;
     where cy.countryname='japan';
 
 
+
 10. 
 a. Mpg min,max
  select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.mpg
@@ -87,8 +88,6 @@ a. Mpg min,max
     left join countries cy on cm.country=cy.countryid
 	left join continents ct on cy.continent=ct.contid
     where cd.mpg= (select max(mpg) from car_details) ;
-
-
 
 
 
@@ -112,8 +111,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.cylinders
 
 
 
-
-
 c. edispl min,max
 select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.edispl
     from car_details cd  right join car_names cn on cd.id=cn.id
@@ -130,8 +127,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.edispl
     left join countries cy on cm.country=cy.countryid
 	left join continents ct on cy.continent=ct.contid
     where cd.edispl= (select max(edispl) from car_details) ;
-
-
 
 
 
@@ -156,7 +151,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.horsepower
 
 
 
-
 e. weight min,max 
 select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.weight
     from car_details cd  right join car_names cn on cd.id=cn.id
@@ -173,7 +167,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.weight
     left join countries cy on cm.country=cy.countryid
 	left join continents ct on cy.continent=ct.contid
     where cd.weight= (select max(weight) from car_details) ;
-
 
 
 
@@ -196,11 +189,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.accel
 
 
 
-
-
-
-
-
 11. select * from 
     	(select year,count(year) as Total_cars 
     	from car_details 
@@ -217,7 +205,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.accel
     	where rownum=1;
 
 
-
 13. select year,
 	 min(mpg),max(mpg),round(avg(mpg),2) as avg,
   	 min(cylinders),max(cylinders),round(avg(cylinders),2) as avg,
@@ -229,7 +216,6 @@ select distinct cn.model,cm.maker,cy.countryname,ct.continent,cd.accel
   	 group by year 
     	 order by year;
   
-
 
  14. select round(avg(horsepower),2),round(avg(weight),2),round(avg(accel),2),
    	 median(horsepower),median(weight),median(accel),
